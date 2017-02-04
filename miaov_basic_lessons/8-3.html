@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淘宝商品广告</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #wrap {
+            width: 340px;
+            height: 220px;
+            margin: 20px auto;
+            padding: 10px 0;
+            box-shadow: 0 0 8px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        #wrap img {
+            width: 220px;
+            height: 220px;
+        }
+
+        #wrap li {
+            width: 50px;
+            height: 29px;
+            border-radius: 4px;
+            background-color: #efefef;
+            margin-bottom: 3px;
+            line-height: 29px;
+            cursor: pointer;
+        }
+
+        #wrap li.active {
+            background-color: #6bb2ff;
+        }
+
+        #wrap .left {
+            float: left;
+        }
+
+        #wrap .left li {
+            margin-left: 5px;
+        }
+
+        #wrap .right {
+            float: right;
+        }
+
+        #wrap .right {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <ul class="left">
+        <li class="active">连衣裙</li>
+        <li>雪纺</li>
+        <li>T恤</li>
+        <li>小脚裤</li>
+        <li>外套</li>
+        <li>婚纱</li>
+        <li>连体裤</li>
+    </ul>
+    <img src="img/8-3-1.jpg">
+    <ul class="right">
+        <li>包包</li>
+        <li>凉鞋</li>
+        <li>雪地靴</li>
+        <li>太阳镜</li>
+        <li>丝袜</li>
+        <li>夜店装</li>
+        <li>情侣装</li>
+    </ul>
+</div>
+<script>
+    var oWrap = document.getElementById("wrap");
+    var aLi = oWrap.getElementsByTagName("li");
+    var oImg = oWrap.getElementsByTagName("img")[0];
+    var arrUrl = ['img/8-3-1.jpg', 'img/8-3-2.jpg', 'img/8-3-3.jpg', 'img/8-3-4.jpg', 'img/8-3-5.jpg', 'img/8-3-6.jpg', 'img/8-3-7.jpg', 'img/8-3-8.jpg', 'img/8-3-9.jpg', 'img/8-3-10.jpg', 'img/8-3-11.jpg', 'img/8-3-12.jpg', 'img/8-3-13.jpg', 'img/8-3-14.jpg'];
+    var timer = null;
+    var num = 0;
+    var onOff = true;
+    for (var i = 0; i < aLi.length; i++) {
+        aLi[i].index = i;
+        aLi[i].onclick = function () {
+            num = this.index;
+            fn();
+            clearInterval(timer);
+        };
+    }
+
+    oImg.onmouseover = function () {
+        clearInterval(timer);
+    };
+    oWrap.onmouseout = function () {
+        clearInterval(timer)
+        autoPlay();
+    };
+    autoPlay();
+
+    function fn() {
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].className = "";
+        }
+        aLi[num].className = "active";
+        oImg.src = arrUrl[num];
+    }
+
+    function autoPlay() {
+        timer = setInterval(function () {
+            if (onOff) {
+                if (num < aLi.length - 1) {
+                    num++;
+                    fn();
+                } else {
+                    onOff = false;
+                }
+            } else {
+                if (num > 0) {
+                    num--;
+                    fn()
+                } else {
+                    onOff = true;
+                }
+
+            }
+
+            /* if (num == aLi.length-1){
+             num = -1;
+             }   正向循环*/
+
+        }, 3000)
+    }
+
+
+</script>
+</body>
+</html>

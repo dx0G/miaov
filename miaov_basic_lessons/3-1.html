@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QQ列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #list {
+            list-style: none;
+            width: 200px;
+            margin: 20px auto;
+            border: 1px solid black;
+        }
+
+        #list h3 {
+            height: 30px;
+            line-height: 30px;
+            font-size: 15px;
+            padding-left: 20px;
+            background: #00A2CA url("img/ico1.gif") no-repeat left center;
+            cursor: pointer;
+        }
+
+        #list li ul {
+            display: none;
+            list-style: none;
+        }
+
+        #list li ul li {
+            padding-left: 20px;
+            border-bottom: 1px solid #8f8f8f;
+        }
+
+        #list li ul li:hover {
+            background-color: #eeeeee;
+        }
+
+        #list .active {
+            background: #f3a431 url("img/ico2.gif") no-repeat left center;
+        }
+    </style>
+</head>
+<body>
+<ul id="list" onselectstart="return false">
+    <li>
+        <h3>我的好友</h3>
+        <ul>
+            <li>张三</li>
+            <li>张三</li>
+            <li>张三</li>
+            <li>张三</li>
+            <li>张三</li>
+        </ul>
+    </li>
+    <li>
+        <h3>企业好友</h3>
+        <ul>
+            <li>李四</li>
+            <li>李四</li>
+            <li>李四</li>
+            <li>李四</li>
+            <li>李四</li>
+        </ul>
+    </li>
+    <li>
+        <h3>黑名单</h3>
+        <ul>
+            <li>王五</li>
+            <li>王五</li>
+            <li>王五</li>
+            <li>王五</li>
+            <li>王五</li>
+        </ul>
+    </li>
+</ul>
+<script>
+    var aH3 = document.getElementsByTagName("h3");
+    var oList = document.getElementById("list");
+    var aUl = oList.getElementsByTagName("ul");
+    for (var i = 0; i < aH3.length; i++) {
+        aH3[i].index = i;
+        aH3[i].onOff = true;
+        aH3[i].onclick = function () {
+            for (var j = 0; j < aH3.length; j++) {
+                if (j != this.index) {
+                    aH3[j].className = "";
+                    aH3[j].onOff = true;
+                    aUl[j].style.display = "none"
+                }
+
+            }
+            if (this.onOff) {
+                this.className = "active";
+                aUl[this.index].style.display = "block";
+            } else {
+                this.className = "";
+                aUl[this.index].style.display = "none";
+            }
+            this.onOff = !this.onOff;
+
+        }
+    }
+
+</script>
+</body>
+</html>

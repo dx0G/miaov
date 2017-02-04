@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改文本框的值</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 570px;
+            height: 115px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        h2 {
+            height: 25px;
+            line-height: 25px;
+            font-size: 15px;
+            color: white;
+            padding-left: 15px;
+            background-color: #00A2CA;
+        }
+
+        img {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        li {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 15px;
+            border-bottom: 1px solid #e7edd4;
+            list-style: none;
+            color: grey;
+        }
+
+        a {
+            text-decoration: none;
+            color: #349b0b;
+            font-weight: bold;
+        }
+
+        input {
+            height: 20px;
+            line-height: 20px;
+        }
+
+        p {
+            display: none;
+            position: absolute;
+            left: 15px;
+
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <h2>分类名称</h2>
+    <ul>
+        <li>
+            <span>妙味远程课堂</span>
+            <img src="img/pen.png" alt="修改">
+            <p>
+                <input type="text" value="妙味远程课堂">
+                <a href="javascript:;">保存</a>
+                <a href="javascript:;">取消</a>
+            </p>
+        </li>
+        <li>
+            <span>妙味远程课堂</span>
+            <img src="img/pen.png" alt="修改">
+            <p>
+                <input type="text" value="妙味远程课堂">
+                <a href="javascript:;">保存</a>
+                <a href="javascript:;">取消</a>
+            </p>
+        </li>
+    </ul>
+</div>
+<script>
+    var aImg = document.getElementsByTagName("img");
+    var aP = document.getElementsByTagName("p");
+    var aText = document.getElementsByTagName("input");
+    var aSpan = document.getElementsByTagName("span");
+    var aLi = document.getElementsByTagName("li");
+
+    for (var i = 0; i < aLi.length; i++) {
+        edit(i);
+    }
+
+    function edit(i) {
+        var a = aP[i].getElementsByTagName("a");
+        aImg[i].onclick = function () {
+            aP[i].style.display = "inline-block";
+        };
+        a[0].onclick = function () {
+            aSpan[i].innerHTML = aText[i].value;
+            aP[i].style.display = "none";
+        };
+        a[1].onclick = function () {
+            aP[i].style.display = "none";
+        };
+    }
+
+</script>
+</body>
+</html>
