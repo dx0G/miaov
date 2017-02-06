@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body, div, img, a {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+            border: 10px solid #eeeeee;
+            margin: 40px auto 0;
+            overflow: hidden;
+
+        }
+
+        #img-box {
+            position: absolute;
+            width: 800px;
+
+        }
+
+        #img-box img {
+            width: 400px;
+            height: 300px;
+            float: left;
+        }
+
+        a {
+            position: absolute;
+            top: 135px;
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: #fff;
+            line-height: 50px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #808080;
+            opacity: 0.5;
+        }
+
+        a:hover {
+            opacity: 1;
+        }
+
+        #prev {
+            left: 10px;
+        }
+
+        #next {
+            right: 10px;
+        }
+
+        ul {
+            position: absolute;
+            bottom: 0;
+            left: 110px;
+        }
+
+        li {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-left: 5px;
+            border-radius: 50%;
+            background-color: #fff;
+            z-index: 2;
+            opacity: 0.5;
+            cursor: pointer;
+        }
+
+        #wrap .active {
+            background-color: yellow;
+            opacity: 1;
+        }
+    </style>
+    <script src="move.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <div id="img-box">
+        <img src="img/pic1.jpg">
+        <img src="img/pic2.jpg">
+    </div>
+    <ul>
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <a id="next" href="javascript:;">></a>
+    <a id="prev" href="javascript:;"><</a>
+</div>
+<script>
+    var oPrev = document.getElementById("prev"),
+        oNext = document.getElementById("next"),
+        oImgBox = document.getElementById("img-box"),
+        aImg = oImgBox.getElementsByTagName("img"),
+        aLi = document.getElementsByTagName("li"),
+        arrImg = ["img/pic1.jpg", "img/pic2.jpg", "img/pic3.jpg", "img/pic4.jpg", "img/pic5.jpg"],
+        num = 0,
+        iNow = 0;
+
+
+    oNext.onclick = function () {
+        iNow++;
+        if (iNow == arrImg.length) {
+            iNow = 0;
+        }
+        slide(1);
+    };
+    oPrev.onclick = function () {
+        iNow--;
+        if (iNow < 0) {
+            iNow = arrImg.length - 1;
+        }
+        slide(-1);
+    };
+    for (var i=0;i<aLi.length;i++){
+        aLi[i].index = i;
+        aLi[i].onclick = function () {
+            if (this.index > num) {
+                iNow = this.index;
+                slide(1)
+            }
+            if (this.index < num) {
+                iNow = this.index;
+                slide(-1)
+            }
+        }
+    }
+
+    function slide(n) {
+        for (var i = 0; i < arrImg.length; i++) {
+            aLi[i].className = "";
+        }
+        aLi[iNow].className = "active";
+        if (n>0){
+            aImg[0].src = arrImg[num];
+            aImg[1].src = arrImg[iNow];
+            oImgBox.style.left = 0;
+            startMove(oImgBox, {"left": -400});
+        }
+        if (n<0){
+            aImg[0].src = arrImg[iNow];
+            aImg[1].src = arrImg[num];
+            oImgBox.style.left = "-400px";
+            startMove(oImgBox, {"left": 0});
+        }
+        num = iNow;
+    }
+</script>
+</body>
+</html>

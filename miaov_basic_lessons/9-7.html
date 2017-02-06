@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+
+        }
+    </style>
+    <script src="move.js"></script>
+</head>
+<body>
+<script>
+    var str = "";
+    var arrImg = ["img/9-7-1.jpg", "img/9-7-2.jpg", "img/9-7-3.jpg", "img/9-7-4.jpg", "img/9-7-5.jpg", "img/9-7-6.jpg"];
+
+    for (var i = 0; i < 32; i++) {
+        str += "<img src='" + arrImg[i % 6] + "' style='left:" + (20 + i % 8 * 110) + "px; top:" + (20 + Math.floor(i / 8) * 110) + "px;'>"
+    }
+    document.body.innerHTML = str;
+
+    var aImg = document.getElementsByTagName("img");
+    var timer = null;
+    for (var i = 0; i < aImg.length; i++) {
+        aImg[i].index = i;
+        aImg[i].onclick = function () {
+            var arr = getAttr(this.index);
+            var num = n = 0;
+            timer = setInterval(function () {
+                shake(aImg[arr[num]], "left",function () {
+                    var target = parseInt(getStyle(aImg[arr[n]],"top")) + 400;
+                    startMove(aImg[arr[n]],{"top":target});
+                    n++;
+                });
+                num++;
+                if (num == arr.length) {
+                    clearInterval(timer)
+                }
+            },50);
+
+        }
+    }
+
+    function getAttr(index) {
+        var arr = [index];
+        var len = Math.max(index, aImg.length - 1 - index);
+        var a = b = index;
+        for (var i = 0; i < len; i++) {
+            if (a > 0) {
+                arr.push(--a);
+            }
+            if (b < aImg.length - 1) {
+                arr.push(++b);
+            }
+        }
+        return arr;
+    }
+
+
+    function shake(obj, attr, fn) {
+        if (obj.onOff) {
+            return;
+        }
+        obj.onOff = true;
+
+        clearInterval(obj.timer);
+        var pos = parseInt(getStyle(obj, attr));
+        var arr = [];
+        var num = 0;
+
+        for (var i = 20; i > 0; i -= 2) {
+            arr.push(i, -i);
+        }
+        arr.push(0);
+        obj.timer = setInterval(function () {
+
+            obj.style.left = pos + arr[num] + "px";
+            num++;
+            if (num == arr.length) {
+                clearInterval(obj.timer);
+                fn && fn.call(obj);
+                obj.onOff = false;
+            }
+        }, 50)
+    }
+    function getStyle(obj, attr) {
+        return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, false)[attr];
+    }
+</script>
+</body>
+</html>
