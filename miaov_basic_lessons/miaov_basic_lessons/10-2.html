@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            width: 50px;
+            height: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        img {
+            border: 0;
+            width: 50px;
+            height: 70px;
+        }
+
+        ul {
+            margin: 50px auto;
+            width: 400px;
+            font-size: 0;
+        }
+
+        li div {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script src="move.js"></script>
+</head>
+<body>
+<ul id="time">
+    <li>
+        <div>
+            <img src="img/10-1-0.JPG" alt=""><img src="img/10-1-0.JPG" alt="">
+        </div>
+    </li>
+    <li>
+        <div>
+            <img src="img/10-1-0.JPG" alt=""><img src="img/10-1-0.JPG" alt="">
+        </div>
+    </li>
+    <li>
+        <div>
+            <img src="img/colon.JPG" alt="">
+        </div>
+    </li>
+    <li>
+        <div>
+            <img src="img/10-1-0.JPG" alt=""><img src="img/10-1-0.JPG" alt="">
+        </div>
+    </li>
+    <li>
+        <div>
+            <img src="img/10-1-0.JPG" alt=""><img src="img/10-1-0.JPG" alt="">
+        </div>
+    </li>
+    <li>
+        <div>
+            <img src="img/colon.JPG" alt="">
+        </div>
+    </li>
+    <li>
+        <div>
+            <img src="img/10-1-0.JPG" alt=""><img src="img/10-1-0.JPG" alt="">
+        </div>
+    </li>
+    <li>
+        <div>
+            <img src="img/10-1-0.JPG" alt=""><img src="img/10-1-0.JPG" alt="">
+        </div>
+    </li>
+</ul>
+<script>
+    var oUl = document.getElementsByTagName("ul")[0],
+        aLi = document.getElementsByTagName("li");
+    function fnTime() {
+        var date = new Date();
+        var getTime = [date.getHours(), date.getMinutes(), date.getSeconds()];
+        str = toTwo(getTime[0]) + ":" + toTwo(getTime[1]) + ":" + toTwo(getTime[2]);
+        function fnFlip(li,index) {
+            var oDiv = li.getElementsByTagName("div")[0],
+                aImg = li.getElementsByTagName("img");
+            if (str.charAt(index) == ":") {
+                aImg[0].src = "img/colon.JPG";
+                setTimeout(function () {
+                    aImg[0].src = "img/colon2.jpg";
+                },500)
+            } else {
+                aImg[1].src = "img/10-1-" +str.charAt(index) + ".JPG";
+                if (aImg[0].src != aImg[1].src) {
+                    startMove(oDiv,{"top": -70},function () {
+                        aImg[0].src = aImg[1].src;
+                        oDiv.style.top = 0;
+                    })
+                }
+            }
+        }
+        for (var i=0;i<aLi.length;i++) {
+            fnFlip(aLi[i],i);
+        }
+    }
+    fnTime();
+    setInterval(fnTime,1000)
+
+    function toTwo(n) {
+        return n < 10 ? "0" + n : "" + n;
+    }
+</script>
+</body>
+</html>

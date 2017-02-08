@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟手机短信</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #phone {
+            position: relative;
+            height: 620px;
+            width: 300px;
+            margin: 0 auto;
+            background: url("img/phone.png") no-repeat center center;
+        }
+
+        #content {
+            position: absolute;
+            top: 100px;
+            left: 32px;
+            height: 375px;
+            width: 236px;
+        }
+
+        #bottom {
+            position: absolute;
+            left: 32px;
+            bottom: 100px;
+            width: 236px;
+            border-top: 1px solid gray;
+            background: #eee;
+            text-align: center;
+            display: inline;
+            line-height: 39px;
+        }
+
+        #avatar {
+            width: 24px;
+            height: 24px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            padding: 2px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        #message {
+            height: 23px;
+            width: 140px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        #send {
+            border: 1px solid gray;
+            padding: 5px;
+            vertical-align: middle;
+            border-radius: 5px;
+            font-size: 14px;
+            color: gray;
+            cursor: pointer;
+        }
+
+        #content p {
+            margin: 2px;
+        }
+
+        #content img {
+            width: 24px;
+            height: 24px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 3px;
+            vertical-align: top;
+        }
+
+        #content span {
+            max-width: 160px;
+            display: inline-block;
+            word-wrap: break-word;
+            font-size: 14px;
+            padding: 5px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            margin: 3px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="phone">
+    <div id="content"></div>
+    <div id="bottom">
+        <img id="avatar" src="img/1-2-1.jpg">
+        <input id="message" type="text" value="">
+        <input id="send" type="button" value="发送">
+    </div>
+</div>
+<script>
+    var oAvatar = document.getElementById("avatar"),
+        oMessage = document.getElementById("message"),
+        oSend = document.getElementById("send"),
+        oContent = document.getElementById("content"),
+        bBtn = true;
+
+    oAvatar.onclick = function () {
+        if (bBtn) {
+            oAvatar.src = "img/1-2-2.jpg";
+            bBtn = false;
+        } else {
+            oAvatar.src = "img/1-2-1.jpg";
+            bBtn = true;
+        }
+    };
+
+    oSend.onclick = function () {
+        if (oMessage.value == "") {
+            alert("请输入内容！")
+        } else {
+            if (bBtn) {
+                oContent.innerHTML = "<p style='text-align: right'><span style='background-color: #eee'>" + oMessage.value + "</span>" + "<img src='img/1-2-1.jpg'> " + "</p>" + oContent.innerHTML;
+                oMessage.value = "";
+            } else {
+                oContent.innerHTML = "<p style='text-align: left'>" + "<img src='img/1-2-2.jpg'> " + "<span style='background-color: #36ff07'>" + oMessage.value + "</span></p>" + oContent.innerHTML;
+                oMessage.value = "";
+            }
+        }
+    };
+
+</script>
+</body>
+</html>

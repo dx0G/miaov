@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品加减与统计结果 </title>
+    <style>
+        body {
+            background: #f1f1f1;
+        }
+
+        input {
+            font-size: 30px;
+            color: gray;
+            padding: 0px 10px;
+            box-shadow: 3px 3px 13px rgba(0, 0, 0, 0.1);
+        }
+
+        input:nth-of-type(2) {
+            margin-right: 40px;
+        }
+
+        div {
+            position: absolute;
+            top: 50px;
+            left: 100px;
+            font: 20px/30px 'arial';
+            color: #666;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+            padding-left: 40px;
+        }
+
+        strong {
+            display: inline-block;
+            width: 40px;
+            text-align: center;
+        }
+
+        em {
+            margin-right: 40px;
+        }
+
+        em, span {
+            font-size: 30px;
+        }
+
+        p {
+            border-top: 1px solid #999;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul>
+        <li>
+            <input type="button" value="-"/>
+            <strong>0</strong>
+            <input type="button" value="+"/>
+            单价：<em>34元</em>
+            小计：<span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-"/>
+            <strong>0</strong>
+            <input type="button" value="+"/>
+            单价：<em>24元</em>
+            小计：<span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-"/>
+            <strong>0</strong>
+            <input type="button" value="+"/>
+            单价：<em>10元</em>
+            小计：<span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-"/>
+            <strong>0</strong>
+            <input type="button" value="+"/>
+            单价：<em>1.5元</em>
+            小计：<span>0元</span>
+        </li>
+    </ul>
+    <p>
+        共购买了 <strong>0</strong> 件商品，单价最贵是：<strong>0</strong>元，合计 <strong>0</strong> 元；
+    </p>
+</div>
+<script>
+    var oUl = document.getElementsByTagName("ul")[0],
+        aLi = oUl.getElementsByTagName("li"),
+        aSpan = oUl.getElementsByTagName("span"),
+        aEm = oUl.getElementsByTagName("em"),
+        oP = document.getElementsByTagName("p")[0],
+        aStrong = oUl.getElementsByTagName("strong");
+
+
+    for (var i = 0; i < aLi.length; i++) {
+        count(i);
+    }
+
+    function sum() {
+        var total = 0;
+        var price = 0;
+        var arr = [];
+        for (var i = 0; i < aLi.length; i++) {
+            total += parseInt(aStrong[i].innerHTML);
+            price += parseFloat(aSpan[i].innerHTML);
+            if (aStrong[i].innerHTML > 0) {
+                arr.push(parseFloat(aEm[i].innerHTML));
+            } else {
+                arr[i] = 0;
+            }
+        }
+        oP.getElementsByTagName("strong")[0].innerHTML = total;
+        oP.getElementsByTagName("strong")[1].innerHTML = Math.max.apply(Math,arr);
+        oP.getElementsByTagName("strong")[2].innerHTML = price;
+    }
+
+
+    function count(n) {
+        var num = 0;
+        var aBtn = aLi[n].getElementsByTagName("input");
+        aBtn[0].onclick = function () {
+            if (num > 0) {
+                num--;
+            }
+            aStrong[n].innerHTML = num;
+            aSpan[n].innerHTML = num * parseFloat(aEm[n].innerHTML) + "元";
+            sum();
+        };
+        aBtn[1].onclick = function () {
+            num++;
+            aStrong[n].innerHTML = num;
+            aSpan[n].innerHTML = num * parseFloat(aEm[n].innerHTML) + "元";
+            sum();
+        }
+    }
+
+</script>
+</body>
+</html>

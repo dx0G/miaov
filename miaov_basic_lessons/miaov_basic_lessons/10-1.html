@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #time {
+            width: 450px;
+            margin: 50px auto;
+        }
+
+        #time img {
+            width: 50px;
+            height: 70px;
+        }
+
+        #time span {
+            display: inline-block;
+            width: 50px;
+            height: 70px;
+            background: url("img/clone.JPG");
+            background-size: 50px 70px;
+
+        }
+    </style>
+</head>
+<body>
+<div id="time">
+    <img src="img/10-1-0.JPG">
+    <img src="img/10-1-0.JPG">
+    <span></span>
+    <img src="img/10-1-0.JPG">
+    <img src="img/10-1-0.JPG">
+    <span></span>
+    <img src="img/10-1-0.JPG">
+    <img src="img/10-1-0.JPG">
+</div>
+<script>
+    var aImg = document.getElementsByTagName("img");
+
+
+    function getTime() {
+        var date = new Date();
+        var oHour = date.getHours();
+        var oMin = date.getMinutes();
+        var oSec = date.getSeconds();
+        var str = toTwo(oHour) + toTwo(oMin) + toTwo(oSec);
+        for (var i = 0; i < aImg.length; i++) {
+            aImg[i].src = "img/10-1-" + str.charAt(i) + ".JPG";
+        }
+    }
+    setInterval(getTime, 1000);
+    getTime();
+    function toTwo(n) {
+        return n < 10 ? "0" + n : "" + n;
+    }
+</script>
+</body>
+</html>

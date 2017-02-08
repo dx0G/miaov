@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>延时消失菜单</title>
+    <style>
+        #nav {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        #nav-bar {
+            width: 600px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #154dca;
+        }
+
+        #nav-bar li {
+            width: 100px;
+            height: 32px;
+            border-radius: 10px;
+            line-height: 32px;
+            margin-top: 4px;
+            text-align: center;
+            color: white;
+            float: left;
+            cursor: pointer;
+        }
+
+        #nav-bar li:hover {
+            background-color: #7B9CC6;
+        }
+
+        #nav-bar a {
+            line-height: 40px;
+            margin-left: 100px;
+            color: white;
+            text-decoration: none;
+        }
+
+        #nav-bar a:hover {
+            color: red;
+        }
+
+        #child-nav {
+            position: relative;
+        }
+
+        #child-nav ul {
+            padding: 5px 0;
+            position: absolute;
+            background-color: #6bb2ff;
+            border-radius: 10px;
+        }
+
+        #child-nav li {
+            float: left;
+            border-right: 1px solid #688e81;
+        }
+
+        #child-nav li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+        }
+
+        #child-nav li a:hover {
+            text-decoration: underline;
+        }
+
+        #home li:last-child, #about-us li:last-child, #showcase li:last-child, #blog li:last-child {
+            border-right: 0;
+        }
+
+        #home {
+            top: -25px;
+            left: 50px;
+            display: none;
+        }
+
+        #about-us {
+            top: -25px;
+            left: 140px;
+            display: none;
+        }
+
+        #showcase {
+            top: -25px;
+            left: 240px;
+            display: none;
+        }
+
+        #blog {
+            top: -25px;
+            left: 290px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="nav">
+    <ul id="nav-bar">
+        <li>首页</li>
+        <li>关于我们</li>
+        <li>作品</li>
+        <li>博客</li>
+        <a href="#">>>更多</a>
+    </ul>
+    <div id="child-nav">
+        <ul id="home">
+            <li><a href="#">最近更新</a></li>
+            <li><a href="#">活动</a></li>
+            <li><a href="#">报名试听</a></li>
+            <li><a href="#">学员反馈</a></li>
+        </ul>
+        <ul id="about-us">
+            <li><a href="#">妙味课堂</a></li>
+            <li><a href="#">培训方式</a></li>
+            <li><a href="#">培训理念</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <ul id="showcase">
+            <li><a href="#">般固</a></li>
+            <li><a href="#">MATRIX</a></li>
+            <li><a href="#">留学E网</a></li>
+            <li><a href="#">ECMall</a></li>
+        </ul>
+        <ul id="blog">
+            <li><a href="#">JS教程</a></li>
+            <li><a href="#">弹出层效果</a></li>
+            <li><a href="#">3D球面标签云</a></li>
+            <li><a href="#">Windows计算器</a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    var oNavBar = document.getElementById("nav-bar"),
+        aLi = oNavBar.getElementsByTagName("li"),
+        oChildNav = document.getElementById("child-nav"),
+        aUl = oChildNav.getElementsByTagName("ul"),
+        timer = null;
+
+    for (var i = 0; i < aLi.length; i++) {
+
+        aLi[i].index = i;
+        aLi[i].onmouseover = function () {
+            for (var j = 0; j < aLi.length; j++) {
+                aUl[j].style.display = "none";
+            }
+            aUl[this.index].style.display = "block";
+
+        };
+        aLi[i].onmouseout = function () {
+            var that = this.index;
+            timer = setTimeout(function () {
+                aUl[that].style.display = "none";
+            }, 500);
+        };
+        aUl[i].onmouseover = function () {
+            clearTimeout(timer)
+        };
+        aUl[i].onmouseout = function () {
+            var _this = this;
+            timer = setTimeout(function () {
+                _this.style.display = "none";
+            }, 500);
+        };
+    }
+</script>
+</body>
+</html>
