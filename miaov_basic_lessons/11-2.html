@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #C0C0C0;
+        }
+
+        #wrap {
+            margin: 50px auto;
+            width: 800px;
+            background: #fff;
+            overflow: hidden;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #left {
+            background: #EFEFD6;
+            width: 320px;
+            height: 220px;
+            border: none;
+            float: left;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        #right {
+            width: 320px;
+            height: 220px;
+            background: #63EFF7;
+            float: right;
+            padding: 10px;
+        }
+
+        #center {
+            float: left;
+            width: 120px;
+            text-align: center;
+        }
+
+        #center a {
+            display: block;
+            color: #fff;
+            background: #F76300;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+            font-family: '微软雅黑';
+        }
+
+        #center p {
+            font-size: 20px;
+            font-family: '微软雅黑';
+        }
+
+        #center ul {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            width: 8px;
+            height: 10px;
+            background: #E7A521;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <textarea id="left">
+    妙味课堂是一支充满温馨并且极富人情味的IT培训团队；2010-2011年，妙味深度关注WEB前端开发领域，为此精心研发出一套灵活而充满趣味的JavaScript课程。2011-2013年，妙味精准研发出最新HTML5\CSS3课程，并推出远程培训课程方案，尝试将线下优良的培训模式移植到远程网络培训中，希望尽最大努力，将一种快乐愉悦的授课体验、结合HTML\CSS\JS知识点，精准传递给妙味课堂的每一位学员。
+    </textarea>
+    <div id="center">
+        <a href="javascript:;">把文字右移</a>
+        <p><span id="current">0</span>/<span id="all">0</span></p>
+        <ul id="progress">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div id="right"></div>
+</div>
+<script>
+    var oBtn = document.getElementsByTagName("a")[0],
+        oLeft = document.getElementById("left"),
+        oRight = document.getElementById("right"),
+        oCur = document.getElementById("current"),
+        oAll = document.getElementById("all"),
+        oUl = document.getElementById("progress"),
+        aLi = oUl.getElementsByTagName("li"),
+        timer = null,
+        num = iNow = 0;
+
+    oBtn.onclick = function () {
+        if (oLeft.value.length <= 0) {
+            alert("请输入内容");
+            return;
+        }
+        timer = setInterval(function () {
+            if (oLeft.value.length <= 0) {
+                clearInterval(timer);
+            }
+            oRight.innerHTML += oLeft.value.charAt(0);
+            oLeft.value = oLeft.value.substring(1);
+            oCur.innerHTML = num;
+            num++;
+            aLi[iNow].style.background = "";
+            iNow++;
+            iNow %= aLi.length;
+            aLi[iNow].style.background = "red";
+        }, 30);
+        oAll.innerHTML = oLeft.innerHTML.length;
+
+    }
+</script>
+</body>
+</html>
